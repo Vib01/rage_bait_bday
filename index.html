@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Classified. For Atte's eyes only.">
-<meta property="og:title" content="The Atte Hesper Incident">
+<meta name="description" content="Classified. For Hesper's eyes only.">
+<meta property="og:title" content="The Hesper Incident">
 <meta property="og:description" content="She has existed since the dinosaurs. The evidence is classified.">
 <meta property="og:image" content="/img/era-egypt.jpg">
 <style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>The Atte Hesper Incident</title>
+<title>The Hesper Incident</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
@@ -188,9 +188,9 @@ const IMG = PHOTOS.medieval || PLACEHOLDER;
 const PIC = k => PHOTOS[k] || IMG;
 
 const ERAS = [
-  {key:"fossil",    year:"66,000,000 BC", name:"The Dinosaur Era",     cap:"Atte-osaurus hesperus. Found fully reclined, arms crossed, unimpressed by the asteroid."},
-  {key:"egypt",     year:"2560 BC",       name:"Ancient Egypt",        cap:"Pharaoh Atte-Hesperkhamun. Mummified mid-sentence. Still talking."},
-  {key:"rome",      year:"AD 476",        name:"The Fall of Rome",     cap:"Atte Caesar, marble. Commissioned shortly after she caused the fall."},
+  {key:"fossil",    year:"66,000,000 BC", name:"The Dinosaur Era",     cap:"Hesperosaurus. Found fully reclined, arms crossed, unimpressed by the asteroid."},
+  {key:"egypt",     year:"2560 BC",       name:"Ancient Egypt",        cap:"Pharaoh Hesperkhamun. Mummified mid-sentence. Still talking."},
+  {key:"rome",      year:"AD 476",        name:"The Fall of Rome",     cap:"Hesper Caesar, marble. Commissioned shortly after she caused the fall."},
   {key:"medieval",  year:"AD 1347",       name:"The Dark Ages",        cap:"Royal portrait, painted from below. The painter ran out of canvas above the eyebrows."},
   {key:"industrial",year:"AD 1888",       name:"The Time Machine",     cap:"Daguerreotype, 1888. Subject refused to sit still for the 14-second exposure."},
   {key:"present",   year:"AD 2026",       name:"The Present Day",      cap:"CCTV, Cineplex lobby. Facial recognition flagged a time traveller."},
@@ -261,7 +261,7 @@ setInterval(()=>{
 function shell(i, inner){
   const e = ERAS[i];
   stage.innerHTML = `<div class="era">
-    <div class="exhibit"><div class="frame f-${e.key}"><img src="${PIC(e.key)}" alt="Atte, ${e.name.toLowerCase()} edition"></div><div class="caption">${e.cap}</div></div>
+    <div class="exhibit"><div class="frame f-${e.key}"><img src="${PIC(e.key)}" alt="Hesper, ${e.name.toLowerCase()} edition"></div><div class="caption">${e.cap}</div></div>
     <div class="puzzle"><div class="year">ERA ${String(i+1).padStart(2,"0")} · ${e.year}</div><h2>${e.name}</h2>${inner}<div class="row"><button class="btn ghost" id="hintBtn">Buy a hint (costs 50,000,000 years)</button></div><div class="hintbox" id="hintBox" hidden></div><div class="toast" id="toast"></div></div>
   </div>`;
 }
@@ -269,7 +269,7 @@ function shell(i, inner){
 /* ---------- intro ---------- */
 function intro(){
   stage.innerHTML = `<div class="era">
-    <div class="exhibit"><div class="frame f-present"><img src="${RAW.selfie}" alt="Atte"></div><div class="caption">Subject: Atte Hesper. Age: yes. Photographed from below, as the forehead requires.</div></div>
+    <div class="exhibit"><div class="frame f-present"><img src="${RAW.selfie}" alt="Hesper"></div><div class="caption">Subject: Hesper. Age: yes. Photographed from below, as the forehead requires.</div></div>
     <div class="puzzle">
       <div class="year">STATUS · CLASSIFIED</div>
       <h2>Subject has existed since the dinosaurs.</h2>
@@ -290,7 +290,7 @@ function dino(){
     {id:"steg",n:"Stegosaurus",a:"150 million years"},
     {id:"bronto",n:"Brontosaurus",a:"152 million years"},
     {id:"trilo",n:"Trilobite",a:"521 million years"},
-    {id:"atte",n:"Specimen A-77",a:"age: classified",face:true},
+    {id:"atte",n:"Specimen H-77",a:"age: classified",face:true},
     {id:"rock",n:"A rock",a:"just a rock"}
   ];
   const lines = {
@@ -327,7 +327,7 @@ function egypt(){
   const go = ()=>{
     const v = $("#ans").value.trim().toLowerCase().replace(/[^a-z ]/g,"");
     if(!v) return;
-    if(["atte","me","myself","i"," hesper","you","her"].includes(v)){ ok("The Pharaoh nods slowly. He has never been so sure of anything."); advance(); return; }
+    if(["hesper","me","myself","i","you","her"].includes(v)){ ok("The Pharaoh nods slowly. He has never been so sure of anything."); advance(); return; }
     tries++;
     if(/nile|river/.test(v)) fail("Wrong. The Nile is younger than you. Even the pyramids were completed before you figured this out.");
     else if(/sphinx|pyramid|sand|sun|ra\b|time/.test(v)) fail("A reasonable answer. Also wrong. The Sphinx lost its nose waiting for you to get this.");
@@ -437,7 +437,7 @@ function present(){
     ["fax","A fax machine","The fax machine was patented in 1843. You were already disappointed in it."],
     ["floppy","A floppy disk","A floppy disk holds 1.44 MB. Your list of regrets needs more."],
     ["vhs","A VHS tape","VHS is from 1976. You remember the launch party. You catered it."],
-    ["atte","Atte, 2026","You can't be older than yourself. Although you're clearly trying."],
+    ["atte","Hesper, 2026","You can't be older than yourself. Although you're clearly trying."],
     ["msn","MSN Messenger","MSN Messenger is from 1999. You were the one who kept sending nudges."],
     ["tablet","A stone tablet","The stone tablet is where your birth was first recorded. Younger than you."],
     ["dialup","Dial-up modem","That noise it made was the sound of you being born. Younger than you."],
@@ -445,7 +445,7 @@ function present(){
   ];
   const sel = new Set();
   shell(5, `<p>Before reaching the future, the Bureau must confirm you are human and not a fossil that learned to type.</p>
-    <p class="task">Select every square showing something older than Atte. Then verify.</p>
+    <p class="task">Select every square showing something older than Hesper. Then verify.</p>
     <div class="grid" id="cap" style="grid-template-columns:repeat(3,minmax(0,1fr))"></div>
     <div class="row"><button class="btn" id="ver">Verify</button></div>`);
   $("#cap").innerHTML = tiles.map(([id,n])=>`<button class="card" data-id="${id}" aria-pressed="false">${id==="atte"?`<img src="${RAW.cinema}" alt="">`:""}<span class="nm">${n}</span></button>`).join("");
@@ -461,7 +461,7 @@ function present(){
 /* ---------- 7 future ---------- */
 function future(){
   shell(6, `<p>AD 3000. Scientists have finally recovered the subject's birth certificate from deep storage.</p>
-    <dl class="cert"><dt>NAME</dt><dd>Atte Hesper</dd><dt>BORN</dt><dd>Before time (approx.)</dd><dt>PLACE</dt><dd>The primordial soup, back row</dd><dt>WITNESS</dt><dd>One very nervous trilobite</dd><dt>HAIRLINE</dt><dd>Pre-receded</dd><dt>STATUS</dt><dd>Still going, somehow</dd></dl>
+    <dl class="cert"><dt>NAME</dt><dd>Hesper</dd><dt>BORN</dt><dd>Before time (approx.)</dd><dt>PLACE</dt><dd>The primordial soup, back row</dd><dt>WITNESS</dt><dd>One very nervous trilobite</dd><dt>HAIRLINE</dt><dd>Pre-receded</dd><dt>STATUS</dt><dd>Still going, somehow</dd></dl>
     <p class="task">One final question stands between you and the birthday message. Are you sure you're young enough to continue?</p>
     <div class="row" id="gate"><button class="btn" id="y">Yes, I'm young</button><button class="btn ghost" id="n">No</button></div>`);
   let size = 1;
@@ -478,7 +478,7 @@ function finale(){
   stage.innerHTML = `<div class="finale">
     <div class="year">ERA ∞ · TODAY</div>
     <h2>${S.skipped ? "You found the shortcut." : "You made it through all of history."}</h2>
-    <div class="frame f-present"><img src="${RAW.point}" alt="Atte"></div>
+    <div class="frame f-present"><img src="${RAW.point}" alt="Hesper"></div>
     <div class="letter">${MESSAGE.map(p=>`<p>${p}</p>`).join("")}<p style="margin:0;font-style:italic">— ${FROM}</p></div>
     <div class="stats"><span>Mistakes <b>${S.miss}</b></span><span>Final estimated age <b>${fmt(S.age)}</b> yrs</span>${mins?`<span>Time spent <b>${mins} min</b></span>`:""}</div>
     <p style="max-width:58ch;color:var(--muted);font-size:16px;margin:0">${S.skipped

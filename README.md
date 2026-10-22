@@ -1,6 +1,6 @@
-# The Atte Hesper Incident
+# The Hesper Incident
 
-A rage-bait birthday quest. Atte has existed since the dinosaurs; to read her birthday message she must survive seven eras of history.
+A rage-bait birthday quest. Hesper has existed since the dinosaurs; to read her birthday message she must survive seven eras of history.
 
 Static site, no build step. Open `index.html` locally or deploy to Vercel as-is.
 
