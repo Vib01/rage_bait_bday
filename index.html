@@ -99,7 +99,7 @@ input[type=text]{background:var(--panel);border:1px solid var(--line);color:var(
 .tm{background:#0e0c09;border:1px solid var(--line);padding:16px;font-family:var(--mono);font-size:13px;display:flex;flex-direction:column;gap:10px}
 .tm .bar{height:14px}
 .tm .bar i{transition:none}
-.hold{position:relative;overflow:hidden}
+.hold{position:relative;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .hold i{position:absolute;left:0;top:0;bottom:0;background:rgba(0,0,0,.25);width:0}
 
 .modal{position:fixed;inset:0;background:rgba(10,8,5,.75);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
@@ -144,7 +144,7 @@ canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
   <header class="file">
     <div>
       <div class="eyebrow">Bureau of Temporal Anomalies · Case file T-0001</div>
-      <h1>The Atte Hesper Incident</h1>
+      <h1>The Hesper Incident</h1>
     </div>
     <div class="eyebrow" id="clearance">Clearance: Birthday</div>
     <div class="readouts">
@@ -176,7 +176,7 @@ const PHOTOS = {"fossil": "img/era-fossil.jpg", "egypt": "img/era-egypt.jpg", "r
 const RAW = {"selfie": "img/raw-selfie.jpg", "sleepy": "img/raw-sleepy.jpg", "cinema": "img/raw-cinema.jpg", "point": "img/raw-point.jpg"};
 const FROM  = "Vibhu";
 const MESSAGE = [
-  "Happy birthday, Atte.",
+  "Happy birthday, Hesper.",
   "You just fought through dinosaurs, pharaohs, a petty Roman button and a time machine with a grudge, all for a message that was sitting in the corner the whole time. That stubbornness is exactly why you're one of my favourite people.",
   "Thank you for the laughs, the chaos and for always showing up. I hope this year is kind to you, surprises you in good ways, and gives you every reason to be as ridiculous as you deserve.",
   "You're not old. You're vintage. Mostly."
@@ -327,7 +327,7 @@ function egypt(){
   const go = ()=>{
     const v = $("#ans").value.trim().toLowerCase().replace(/[^a-z ]/g,"");
     if(!v) return;
-    if(["atte","me","myself","i","atte hesper","you","her"].includes(v)){ ok("The Pharaoh nods slowly. He has never been so sure of anything."); advance(); return; }
+    if(["atte","me","myself","i"," hesper","you","her"].includes(v)){ ok("The Pharaoh nods slowly. He has never been so sure of anything."); advance(); return; }
     tries++;
     if(/nile|river/.test(v)) fail("Wrong. The Nile is younger than you. Even the pyramids were completed before you figured this out.");
     else if(/sphinx|pyramid|sand|sun|ra\b|time/.test(v)) fail("A reasonable answer. Also wrong. The Sphinx lost its nose waiting for you to get this.");
@@ -423,7 +423,8 @@ function industrial(){
       if(p>=1){ done=true; ok("Arrived in AD 2026. The engine has asked to retire, like the barber."); advance(); } else raf=requestAnimationFrame(tick); };
     const start = e=>{ if(done) return; e.preventDefault(); t0=performance.now(); raf=requestAnimationFrame(tick); };
     const stop = ()=>{ if(done||!t0) return; cancelAnimationFrame(raf); t0=0; fill.style.width="0"; $("#tmFill").style.width="12%"; fail("You let go. Grip strength: historical.", 2); };
-    lever.addEventListener("pointerdown", start); lever.addEventListener("pointerup", stop); lever.addEventListener("pointerleave", stop);
+    lever.addEventListener("pointerdown", start); lever.addEventListener("pointerup", stop); lever.addEventListener("pointerleave", stop); lever.addEventListener("pointercancel", stop);
+    lever.addEventListener("contextmenu", e=>e.preventDefault());
     lever.addEventListener("keydown", e=>{ if((e.key===" "||e.key==="Enter") && !e.repeat) start(e); });
     lever.addEventListener("keyup", e=>{ if(e.key===" "||e.key==="Enter") stop(); });
   }
