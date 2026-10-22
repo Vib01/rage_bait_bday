@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Classified. For Atte's eyes only.">
+<meta property="og:title" content="The Atte Hesper Incident">
+<meta property="og:description" content="She has existed since the dinosaurs. The evidence is classified.">
+<meta property="og:image" content="/img/era-egypt.jpg">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>The Atte Hesper Incident</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one classified case file, one era at a time; header readouts, a framed exhibit, the puzzle, and an insult ledger */
+:root{
+  --bg:#15110c; --panel:#201a12; --line:#3a3022; --ink:#ede3cf; --muted:#a8997e;
+  --gold:#d6a640; --red:#e2553f; --cyan:#72d7cf;
+  --display:"IM Fell English SC", "Iowan Old Style", Georgia, serif;
+  --body:"Crimson Pro", Georgia, "Times New Roman", serif;
+  --mono:"DM Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px;
+  background-image:radial-gradient(ellipse at 50% -10%, #2c2216 0%, transparent 60%);min-height:100%}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+header.file{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:12px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:0;text-wrap:balance}
+.readouts{display:flex;flex-wrap:wrap;gap:8px 18px;grid-column:1/-1;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.readouts b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.readouts .age b{color:var(--red)}
+
+.progress{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.bar{flex:1;height:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);transition:width .6s ease}
+.progress.corrupt .bar i{background:var(--red)}
+.progress span{min-width:150px;text-align:right;font-variant-numeric:tabular-nums}
+
+.era{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
+@media (max-width:620px){.era{grid-template-columns:1fr}.exhibit{max-width:220px;margin:0 auto}}
+.exhibit{display:flex;flex-direction:column;gap:8px;min-width:0}
+.frame{position:relative;aspect-ratio:4/5;max-width:100%;border:6px double var(--gold);padding:6px;background:#0d0a07}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.caption{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:center}
+.f-fossil{border-color:#8a7556}.f-rome{border-color:#cfc6b4}.f-future{border-color:var(--cyan)}.f-present{border-color:#5f8a64}
+.frame{cursor:zoom-in}
+.zoom{position:fixed;inset:0;background:rgba(8,6,4,.9);display:flex;align-items:center;justify-content:center;padding:20px;z-index:25;cursor:zoom-out}
+.zoom img{max-height:100%;max-width:min(600px,100%);border:6px double var(--gold)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;width:100%;max-width:700px}
+.gallery figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border:2px solid var(--line);cursor:zoom-in}
+.gallery figcaption{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ach{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--panel);border:1px solid var(--gold);padding:10px 14px;font-family:var(--mono);font-size:13px;z-index:40;max-width:300px;transform:translateY(140%);transition:transform .35s ease}
+.ach.on{transform:none}.ach b{display:block;color:var(--gold);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.ad{background:#fff8d6;color:#222;font-family:Arial,Helvetica,sans-serif;width:min(380px,100%);border:3px solid #ff2d78;position:relative;padding:18px;text-align:center}
+.ad h4{margin:0 0 6px;font-size:22px;color:#d4004f}.ad p{margin:0 0 12px;font-size:15px}
+.ad .x{position:absolute;top:2px;right:4px;background:none;border:0;font-size:9px;color:#bbb;padding:2px}
+.ad .cta{background:#28c840;color:#fff;border:0;padding:10px 16px;font-weight:bold;font-size:15px}
+.hintbox{font-size:16px;color:var(--muted);border:1px dashed var(--line);padding:8px 12px}
+
+.puzzle{display:flex;flex-direction:column;gap:14px;min-width:0}
+.year{font-family:var(--mono);font-size:13px;letter-spacing:.12em;color:var(--gold)}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,4.5vw,32px);line-height:1.1;margin:0;text-wrap:balance}
+.puzzle p{margin:0;max-width:62ch}
+.task{border-left:2px solid var(--gold);padding-left:12px;font-style:italic;color:var(--ink)}
+
+.btn{background:var(--gold);color:#1a1209;border:0;padding:10px 18px;font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);padding:12px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:92px}
+.card:hover{border-color:var(--gold)}
+.card .nm{font-style:italic;font-size:17px;line-height:1.2}
+.card .ag{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.card img{width:44px;height:44px;object-fit:cover;filter:grayscale(1) contrast(1.4) sepia(.4);border-radius:50%}
+.card.sel{border-color:var(--red);background:#2b1a13}
+
+input[type=text]{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:10px 12px;font:inherit;width:100%;max-width:320px}
+
+.arena{position:relative;height:220px;background:var(--panel);border:1px solid var(--line);overflow:hidden}
+.arena .btn{position:absolute;transition:left .18s ease,top .18s ease;white-space:nowrap}
+
+.decree{background:#e9dcbd;color:#2b2015;padding:18px 20px;font-size:17px;border:1px solid #b59e6e}
+.decree h3{font-family:var(--display);font-weight:400;margin:0 0 6px;font-size:22px}
+.lock{display:flex;gap:10px}
+.dial{display:flex;flex-direction:column;align-items:center;background:var(--panel);border:1px solid var(--line);width:58px}
+.dial button{background:none;border:0;width:100%;padding:4px;color:var(--muted)}
+.dial b{font-family:var(--mono);font-size:28px;font-weight:500;font-variant-numeric:tabular-nums}
+
+.tm{background:#0e0c09;border:1px solid var(--line);padding:16px;font-family:var(--mono);font-size:13px;display:flex;flex-direction:column;gap:10px}
+.tm .bar{height:14px}
+.tm .bar i{transition:none}
+.hold{position:relative;overflow:hidden}
+.hold i{position:absolute;left:0;top:0;bottom:0;background:rgba(0,0,0,.25);width:0}
+
+.modal{position:fixed;inset:0;background:rgba(10,8,5,.75);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
+.win{background:#d8d4cc;color:#111;font-family:var(--mono);font-size:14px;width:min(360px,100%);border:2px solid #fff;box-shadow:3px 3px 0 #000;position:relative}
+.win .tb{background:#1d3f8f;color:#fff;padding:4px 8px;display:flex;justify-content:space-between;align-items:center}
+.win .tb button{background:#d8d4cc;color:#111;border:1px solid #fff;width:22px;height:20px;line-height:1;padding:0;position:relative;transition:transform .15s}
+.win .bd{padding:16px}
+
+.cert{background:linear-gradient(135deg,#0f1f1f,#0b1414);border:1px solid var(--cyan);padding:16px;font-family:var(--mono);font-size:13px;color:var(--cyan);display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+.cert dt{opacity:.7}.cert dd{margin:0;color:#d9fbf7}
+
+.ledger{border-top:1px solid var(--line);padding-top:12px}
+.ledger ol{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto}
+.ledger li{font-size:16px;color:var(--muted);display:grid;grid-template-columns:42px 1fr;gap:8px}
+.ledger li span{font-family:var(--mono);font-size:12px;color:var(--red);padding-top:3px}
+.ledger li:first-child{color:var(--ink)}
+
+.toast{min-height:28px;font-style:italic;color:var(--red)}
+.toast.ok{color:var(--cyan)}
+.shake{animation:shake .35s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+footer{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted);gap:12px;flex-wrap:wrap}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:11px;padding:0}
+#tooOld{font-size:8px;opacity:.16;text-decoration:none;letter-spacing:.02em}
+#tooOld:hover{opacity:.4}
+
+.finale{display:flex;flex-direction:column;gap:16px;text-align:center;align-items:center}
+.finale .frame{width:220px}
+.letter{max-width:58ch;text-align:left;background:var(--panel);border:1px solid var(--line);padding:20px 22px;font-size:19px}
+.letter p{margin:0 0 12px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font-weight:500}
+canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="file">
+    <div>
+      <div class="eyebrow">Bureau of Temporal Anomalies · Case file T-0001</div>
+      <h1>The Atte Hesper Incident</h1>
+    </div>
+    <div class="eyebrow" id="clearance">Clearance: Birthday</div>
+    <div class="readouts">
+      <span>Era <b id="eraNo">0/7</b></span>
+      <span class="age">Estimated age <b id="age">—</b> yrs</span>
+      <span>Mistakes <b id="miss">0</b></span>
+    </div>
+  </header>
+
+  <div class="progress" id="progress"><div class="bar"><i id="barFill" style="width:0%"></i></div><span id="pct">0% complete</span></div>
+
+  <main id="stage"></main>
+
+  <section class="ledger" aria-live="polite">
+    <div class="eyebrow">Official record of your failures</div>
+    <ol id="log"><li><span>—</span>No failures yet. Enjoy it while it lasts.</li></ol>
+  </section>
+
+  <footer>
+    <span>Progress saves in this browser. <button id="restart">Start over</button></span>
+    <button id="tooOld" title="">I'm too old for this</button>
+  </footer>
+</div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+/* ===== EDIT THESE ===== */
+const PHOTOS = {"fossil": "img/era-fossil.jpg", "egypt": "img/era-egypt.jpg", "rome": "img/era-rome.jpg", "medieval": "img/era-medieval.jpg", "industrial": "img/era-industrial.jpg", "present": "img/era-present.jpg", "future": "img/era-future.jpg"};
+const RAW = {"selfie": "img/raw-selfie.jpg", "sleepy": "img/raw-sleepy.jpg", "cinema": "img/raw-cinema.jpg", "point": "img/raw-point.jpg"};
+const FROM  = "Vibhu";
+const MESSAGE = [
+  "Happy birthday, Atte.",
+  "You just fought through dinosaurs, pharaohs, a petty Roman button and a time machine with a grudge, all for a message that was sitting in the corner the whole time. That stubbornness is exactly why you're one of my favourite people.",
+  "Thank you for the laughs, the chaos and for always showing up. I hope this year is kind to you, surprises you in good ways, and gives you every reason to be as ridiculous as you deserve.",
+  "You're not old. You're vintage. Mostly."
+];
+/* ====================== */
+
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250"><rect width="200" height="250" fill="#2a2116"/><ellipse cx="100" cy="135" rx="62" ry="82" fill="#c9a97a"/><ellipse cx="100" cy="88" rx="58" ry="40" fill="#d8bb8e"/><circle cx="78" cy="140" r="6" fill="#2a2116"/><circle cx="122" cy="140" r="6" fill="#2a2116"/><path d="M78 178q22 16 44 0" stroke="#2a2116" stroke-width="5" fill="none" stroke-linecap="round"/><text x="100" y="80" text-anchor="middle" font-family="monospace" font-size="11" fill="#5a4630">FOREHEAD</text><text x="100" y="94" text-anchor="middle" font-family="monospace" font-size="9" fill="#5a4630">(to scale)</text><text x="100" y="242" text-anchor="middle" font-family="monospace" font-size="11" fill="#d6a640">PHOTO PENDING</text></svg>`);
+const IMG = PHOTOS.medieval || PLACEHOLDER;
+const PIC = k => PHOTOS[k] || IMG;
+
+const ERAS = [
+  {key:"fossil",    year:"66,000,000 BC", name:"The Dinosaur Era",     cap:"Atte-osaurus hesperus. Found fully reclined, arms crossed, unimpressed by the asteroid."},
+  {key:"egypt",     year:"2560 BC",       name:"Ancient Egypt",        cap:"Pharaoh Atte-Hesperkhamun. Mummified mid-sentence. Still talking."},
+  {key:"rome",      year:"AD 476",        name:"The Fall of Rome",     cap:"Atte Caesar, marble. Commissioned shortly after she caused the fall."},
+  {key:"medieval",  year:"AD 1347",       name:"The Dark Ages",        cap:"Royal portrait, painted from below. The painter ran out of canvas above the eyebrows."},
+  {key:"industrial",year:"AD 1888",       name:"The Time Machine",     cap:"Daguerreotype, 1888. Subject refused to sit still for the 14-second exposure."},
+  {key:"present",   year:"AD 2026",       name:"The Present Day",      cap:"CCTV, Cineplex lobby. Facial recognition flagged a time traveller."},
+  {key:"future",    year:"AD 3000",       name:"The Future",           cap:"Hologram, archived for scientific study. Hairline still loading."}
+];
+
+const INSULTS = [
+  "The carbon-dating lab has requested a bigger budget.",
+  "A glacier just overtook you.",
+  "Your hairline has filed a missing-persons report on your good decisions.",
+  "Historians have added this to the list of things you got wrong.",
+  "Even fossils think you're slow.",
+  "The asteroid was aiming for you. It missed. So did you.",
+  "Archaeologists found your last correct answer next to a mammoth.",
+  "Your forehead casts a shadow visible from the year 3000.",
+  "Socrates said wisdom comes with age. He had not met you.",
+  "That was the wrong answer in several dead languages.",
+  "The Bureau has upgraded your status from 'old' to 'heritage site'.",
+  "This mistake will be taught in history class. Under 'what not to do'."
+];
+
+/* ---------- state ---------- */
+const DEFAULT = {stage:0, age:66000031, miss:0, log:[], started:null, skipped:false};
+let S;
+try{ S = Object.assign({}, DEFAULT, JSON.parse(localStorage.getItem("atte-quest")||"{}")); }catch(e){ S = {...DEFAULT}; }
+function save(){ try{ localStorage.setItem("atte-quest", JSON.stringify(S)); }catch(e){} }
+const $ = s => document.querySelector(s);
+const stage = $("#stage");
+const fmt = n => n.toLocaleString("en-US");
+let ins = 0;
+
+function hud(){
+  $("#age").textContent = fmt(S.age);
+  $("#miss").textContent = S.miss;
+  $("#eraNo").textContent = Math.min(S.stage,7) + "/7";
+  realPct = Math.round(Math.min(S.stage,7)/7*100);
+  if(!corrupt) setPct(realPct);
+  const log = $("#log");
+  if(S.log.length){
+    log.innerHTML = S.log.slice(-30).reverse().map(l=>`<li><span>#${l.n}</span>${l.t}</li>`).join("");
+  }
+}
+let realPct = 0, corrupt = false;
+function setPct(p, label){ $("#barFill").style.width = p+"%"; $("#pct").textContent = label || (p+"% complete"); }
+
+var fail = function(msg, years){
+  S.miss++;
+  S.age += years ?? (1000000 + Math.floor(Math.random()*9000000));
+  const line = msg || INSULTS[ins++ % INSULTS.length];
+  S.log.push({n:S.miss, t:line});
+  save(); hud();
+  const t = $("#toast"); if(t){ t.className="toast"; t.textContent = line; }
+  stage.classList.remove("shake"); void stage.offsetWidth; stage.classList.add("shake");
+};
+function ok(msg){ const t=$("#toast"); if(t){ t.className="toast ok"; t.textContent=msg; } }
+function advance(delay=1400){ setTimeout(()=>{ S.stage++; save(); render(); window.scrollTo({top:0,behavior:"smooth"}); }, delay); }
+
+/* fake progress corruption */
+setInterval(()=>{
+  if(S.stage<1 || S.stage>=7 || corrupt) return;
+  corrupt = true; $("#progress").classList.add("corrupt");
+  setPct(87,"87% complete");
+  setTimeout(()=>setPct(12,"12% · progress corrupted by age"),900);
+  setTimeout(()=>{ corrupt=false; $("#progress").classList.remove("corrupt"); setPct(realPct); },3600);
+}, 22000);
+
+/* ---------- shell ---------- */
+function shell(i, inner){
+  const e = ERAS[i];
+  stage.innerHTML = `<div class="era">
+    <div class="exhibit"><div class="frame f-${e.key}"><img src="${PIC(e.key)}" alt="Atte, ${e.name.toLowerCase()} edition"></div><div class="caption">${e.cap}</div></div>
+    <div class="puzzle"><div class="year">ERA ${String(i+1).padStart(2,"0")} · ${e.year}</div><h2>${e.name}</h2>${inner}<div class="row"><button class="btn ghost" id="hintBtn">Buy a hint (costs 50,000,000 years)</button></div><div class="hintbox" id="hintBox" hidden></div><div class="toast" id="toast"></div></div>
+  </div>`;
+}
+
+/* ---------- intro ---------- */
+function intro(){
+  stage.innerHTML = `<div class="era">
+    <div class="exhibit"><div class="frame f-present"><img src="${RAW.selfie}" alt="Atte"></div><div class="caption">Subject: Atte Hesper. Age: yes. Photographed from below, as the forehead requires.</div></div>
+    <div class="puzzle">
+      <div class="year">STATUS · CLASSIFIED</div>
+      <h2>Subject has existed since the dinosaurs.</h2>
+      <p>The Bureau has traced one individual across seven eras of human history. Fossils, tomb paintings, Roman marble, royal portraits. Same face. Same forehead.</p>
+      <p>A birthday message has been sealed at the end of time. To read it, you must survive every era. The Bureau does not offer refunds, hints, or emotional support.</p>
+      <div class="row"><button class="btn" id="go">Begin the investigation</button></div>
+      <div class="toast" id="toast"></div>
+    </div></div>`;
+  $("#go").onclick = ()=>{ S.started = Date.now(); advance(0); };
+}
+
+/* ---------- 1 dinosaurs ---------- */
+function dino(){
+  const items = [
+    {id:"trex",n:"Tyrannosaurus rex",a:"66 million years"},
+    {id:"tri",n:"Triceratops",a:"68 million years"},
+    {id:"raptor",n:"Velociraptor",a:"75 million years"},
+    {id:"steg",n:"Stegosaurus",a:"150 million years"},
+    {id:"bronto",n:"Brontosaurus",a:"152 million years"},
+    {id:"trilo",n:"Trilobite",a:"521 million years"},
+    {id:"atte",n:"Specimen A-77",a:"age: classified",face:true},
+    {id:"rock",n:"A rock",a:"just a rock"}
+  ];
+  const lines = {
+    trex:"The T. rex is younger than you. It also had better arm-to-forehead proportions.",
+    tri:"Triceratops? Three horns, still fewer wrinkles.",
+    raptor:"Velociraptor was the size of a turkey. You were already complaining about your back.",
+    steg:"Stegosaurus lived closer in time to T. rex than T. rex lives to you. Still younger than you.",
+    bronto:"Brontosaurus has been reclassified twice. You have only ever been classified as 'ancient'.",
+    atte:"Incorrect. That specimen is 14 million years younger than you.",
+    rock:"That rock went to school with you. It was the popular one."
+  };
+  const draw = () => {
+    const sh = items.slice().sort(()=>Math.random()-.5);
+    $("#fossils").innerHTML = sh.map(it=>`<button class="card" data-id="${it.id}">${it.face?`<img src="${RAW.sleepy}" alt="">`:""}<span class="nm">${it.n}</span><span class="ag">${it.a}</span></button>`).join("");
+    $("#fossils").querySelectorAll(".card").forEach(b=>b.onclick=()=>pick(b.dataset.id));
+  };
+  const pick = id => {
+    if(id==="trilo"){ ok("Correct. The trilobite is the oldest specimen here. Excluding you."); $("#fossils").innerHTML=""; advance(); return; }
+    fail(lines[id]); draw();
+  };
+  shell(0, `<p>A museum has received a crate of fossils. One of them has a suspiciously familiar face.</p>
+    <p class="task">Select the oldest specimen in the collection. Wrong answers reshuffle the crate.</p>
+    <div class="grid" id="fossils"></div>`);
+  draw();
+}
+
+/* ---------- 2 egypt ---------- */
+function egypt(){
+  let tries = 0;
+  shell(1, `<p>A riddle is carved above the burial chamber. The Pharaoh insists it is easy. The Pharaoh is lying.</p>
+    <p class="task">"I was here before the pyramids were finished. I run through Egypt but never get anywhere. I am older than every stone in this tomb. Who am I?"</p>
+    <div class="row"><input type="text" id="ans" autocomplete="off" placeholder="Your answer"><button class="btn" id="sub">Carve it</button></div>
+    <p class="eyebrow" id="hint" hidden>Hint from the Pharaoh: the answer is looking at this screen right now.</p>`);
+  const go = ()=>{
+    const v = $("#ans").value.trim().toLowerCase().replace(/[^a-z ]/g,"");
+    if(!v) return;
+    if(["atte","me","myself","i","atte hesper","you","her"].includes(v)){ ok("The Pharaoh nods slowly. He has never been so sure of anything."); advance(); return; }
+    tries++;
+    if(/nile|river/.test(v)) fail("Wrong. The Nile is younger than you. Even the pyramids were completed before you figured this out.");
+    else if(/sphinx|pyramid|sand|sun|ra\b|time/.test(v)) fail("A reasonable answer. Also wrong. The Sphinx lost its nose waiting for you to get this.");
+    else fail();
+    if(tries>=3) $("#hint").hidden=false;
+    $("#ans").select();
+  };
+  $("#sub").onclick = go;
+  $("#ans").onkeydown = e=>{ if(e.key==="Enter") go(); };
+}
+
+/* ---------- 3 rome ---------- */
+function rome(){
+  let dodges = 0; const LIMIT = 9;
+  shell(2, `<p>The Senate will restore your youth if you can claim it. The button has been briefed on your reflexes.</p>
+    <p class="task">Press the button. Every failed attempt adds a year.</p>
+    <div class="arena" id="arena"><button class="btn" id="claim" style="left:30%;top:40%">Claim your youth</button></div>`);
+  const arena = $("#arena"), b = $("#claim");
+  const move = ()=>{
+    const W = arena.clientWidth - b.offsetWidth - 8, H = arena.clientHeight - b.offsetHeight - 8;
+    b.style.left = (4+Math.random()*W)+"px"; b.style.top = (4+Math.random()*H)+"px";
+  };
+  const dodge = ()=>{
+    if(dodges>=LIMIT) return;
+    dodges++; S.age += 1;
+    const msgs = ["Too slow.","The button is younger than you. It moves like it.","Rome wasn't built in a day. Your reaction time also wasn't.","Missed. +1 year.","The gladiators are laughing.","Caesar saw that.","Your youth has fled to Gaul.","Try running. Oh wait. Your knees.","The button is getting tired. So are you, presumably."];
+    S.miss++; S.log.push({n:S.miss,t:msgs[dodges-1]}); save(); hud(); $("#toast").className="toast"; $("#toast").textContent = msgs[dodges-1];
+    move();
+    if(dodges>=LIMIT){ b.textContent="Fine. Take it."; ok("The button has given up. It is tired. You understand that feeling."); }
+  };
+  b.addEventListener("pointerenter", e=>{ if(e.pointerType==="mouse") dodge(); });
+  b.addEventListener("click", e=>{
+    if(e.detail===0){ ok("Keyboard? A tactician."); achieve("Senior strategist","Beat the Roman button with the keyboard."); return verdict(); }
+    if(dodges<LIMIT) return dodge();
+    verdict();
+  });
+  function verdict(){
+    arena.outerHTML = `<p class="task">The Senate has one more question before releasing you. Did you cause the fall of the Roman Empire?</p>
+      <div class="row"><button class="btn ghost" id="yes">Yes</button><button class="btn ghost" id="no">No</button></div>`;
+    $("#yes").onclick = ()=>{ ok("A confession. The Senate accepts and moves on. Rome is still mad about it."); advance(1800); };
+    $("#no").onclick = ()=>{ ok("Denial noted. The Senate found your forehead at the scene. Moving on."); advance(1800); };
+  }
+}
+
+/* ---------- 4 medieval ---------- */
+function medieval(){
+  const code = [0,0,0];
+  shell(3, `<p>You are locked in a castle tower. The royal barber left a decree on the door before resigning.</p>
+    <div class="decree"><h3>Royal Decree</h3>
+      In the year of our Lord MCCCXLVII, by order of the Crown: the Royal Barber, having endured CDXII years of that hairline, hereby resigns. He leaves behind XX gold coins, VII combs (all broken) and one request that nobody ever ask him about the forehead again.</div>
+    <p class="task">The lock wants the number of years the barber suffered.</p>
+    <div class="row"><div class="lock" id="lock"></div><button class="btn" id="open">Try the lock</button></div>`);
+  const L = $("#lock");
+  L.innerHTML = code.map((_,i)=>`<div class="dial"><button data-i="${i}" data-d="1" aria-label="Increase digit ${i+1}">▲</button><b id="d${i}">0</b><button data-i="${i}" data-d="-1" aria-label="Decrease digit ${i+1}">▼</button></div>`).join("");
+  L.querySelectorAll("button").forEach(b=>b.onclick=()=>{ const i=+b.dataset.i; code[i]=(code[i]+ +b.dataset.d+10)%10; $("#d"+i).textContent=code[i]; });
+  $("#open").onclick = ()=>{
+    const v = code.join("");
+    if(v==="412"){ ok("The lock opens. Somewhere, a retired barber weeps with relief."); advance(); return; }
+    const m = {"134":"That's the year, in the wrong order, and also the wrong number. Impressive.","347":"That's the year. The barber suffered longer than a year. Look at you.","020":"Those are the coins. The barber would rather have had therapy.","007":"Those are the broken combs. Each one broke on contact with your hair."};
+    fail(m[v] || "The lock refuses. The barber laughs from his retirement cottage.");
+  };
+}
+
+/* ---------- 5 time machine ---------- */
+function industrial(){
+  shell(4, `<p>A Victorian time machine will carry you to the present. It runs on steam, optimism and your remaining patience.</p>
+    <div class="tm"><div>CHRONO-ENGINE MK. II · Destination AD 2026</div><div class="bar"><i id="tmFill" style="width:0%"></i></div><div id="tmMsg">Idle.</div></div>
+    <div class="row" id="tmCtl"><button class="btn" id="ignite">Ignite the engine</button></div>`);
+  $("#ignite").onclick = ()=>{
+    $("#tmCtl").innerHTML="";
+    run(0, 99, 4200, ()=>{ $("#tmMsg").textContent="99%. Almost there."; setTimeout(errorBox, 700); });
+  };
+  function run(from,to,ms,done){
+    const t0 = performance.now();
+    const step = t=>{ const p = Math.min(1,(t-t0)/ms); const v = from+(to-from)*(p<.8?p:.8+(p-.8)*.4/1); $("#tmFill").style.width = Math.min(to,v)+"%"; $("#tmMsg").textContent = "Loading the timeline… "+Math.floor(Math.min(to,v))+"%"; p<1?requestAnimationFrame(step):done(); };
+    requestAnimationFrame(step);
+  }
+  function errorBox(){
+    const m = document.createElement("div"); m.className="modal";
+    m.innerHTML = `<div class="win" role="alertdialog" aria-label="System error"><div class="tb"><span>Chrono-Engine.exe</span><button id="x" aria-label="Close">×</button></div><div class="bd"><p style="margin:0 0 12px"><b>Fatal error 0xA77E</b></p><p style="margin:0 0 14px">Your hairline has disconnected. Reconnecting…</p><button class="btn ghost" style="color:#111;border-color:#888" id="okb">OK</button></div></div>`;
+    document.body.appendChild(m);
+    let fled = 0;
+    const flee = e=>{ if(fled<3){ fled++; e.preventDefault(); const x=$("#x"); x.style.transform=`translate(${-40*fled}px,${fled%2?30:-10}px)`; fail("The close button doesn't want to be touched by someone that old.", 1); return true; } return false; };
+    $("#okb").onclick = ()=>{ fail("You pressed OK on a fatal error. That's the most 'born before computers' thing you've done today.", 1); };
+    $("#x").onclick = e=>{ if(flee(e)) return; m.remove(); after(); };
+  }
+  function after(){
+    $("#tmFill").style.width="12%"; $("#tmMsg").textContent="12%. The engine forgot everything. Relatable.";
+    $("#tmCtl").innerHTML = `<button class="btn hold" id="lever"><i></i>Hold the flux lever (4 s)</button>`;
+    const lever = $("#lever"), fill = lever.querySelector("i");
+    let t0 = 0, raf = 0, done = false;
+    const tick = t=>{ const p = Math.min(1,(t-t0)/4000); fill.style.width = p*100+"%"; $("#tmFill").style.width = (12+p*88)+"%"; $("#tmMsg").textContent = "Stabilising… "+Math.floor(12+p*88)+"%";
+      if(p>=1){ done=true; ok("Arrived in AD 2026. The engine has asked to retire, like the barber."); advance(); } else raf=requestAnimationFrame(tick); };
+    const start = e=>{ if(done) return; e.preventDefault(); t0=performance.now(); raf=requestAnimationFrame(tick); };
+    const stop = ()=>{ if(done||!t0) return; cancelAnimationFrame(raf); t0=0; fill.style.width="0"; $("#tmFill").style.width="12%"; fail("You let go. Grip strength: historical.", 2); };
+    lever.addEventListener("pointerdown", start); lever.addEventListener("pointerup", stop); lever.addEventListener("pointerleave", stop);
+    lever.addEventListener("keydown", e=>{ if((e.key===" "||e.key==="Enter") && !e.repeat) start(e); });
+    lever.addEventListener("keyup", e=>{ if(e.key===" "||e.key==="Enter") stop(); });
+  }
+}
+
+/* ---------- 6 present ---------- */
+function present(){
+  const tiles = [
+    ["nokia","A Nokia 3310","The Nokia 3310 came out in 2000. You were already asking people to speak up."],
+    ["fax","A fax machine","The fax machine was patented in 1843. You were already disappointed in it."],
+    ["floppy","A floppy disk","A floppy disk holds 1.44 MB. Your list of regrets needs more."],
+    ["vhs","A VHS tape","VHS is from 1976. You remember the launch party. You catered it."],
+    ["atte","Atte, 2026","You can't be older than yourself. Although you're clearly trying."],
+    ["msn","MSN Messenger","MSN Messenger is from 1999. You were the one who kept sending nudges."],
+    ["tablet","A stone tablet","The stone tablet is where your birth was first recorded. Younger than you."],
+    ["dialup","Dial-up modem","That noise it made was the sound of you being born. Younger than you."],
+    ["trilo2","That trilobite again","It's back. It's still younger than you."]
+  ];
+  const sel = new Set();
+  shell(5, `<p>Before reaching the future, the Bureau must confirm you are human and not a fossil that learned to type.</p>
+    <p class="task">Select every square showing something older than Atte. Then verify.</p>
+    <div class="grid" id="cap" style="grid-template-columns:repeat(3,minmax(0,1fr))"></div>
+    <div class="row"><button class="btn" id="ver">Verify</button></div>`);
+  $("#cap").innerHTML = tiles.map(([id,n])=>`<button class="card" data-id="${id}" aria-pressed="false">${id==="atte"?`<img src="${RAW.cinema}" alt="">`:""}<span class="nm">${n}</span></button>`).join("");
+  $("#cap").querySelectorAll(".card").forEach(b=>b.onclick=()=>{ const id=b.dataset.id; sel.has(id)?sel.delete(id):sel.add(id); b.classList.toggle("sel"); b.setAttribute("aria-pressed",sel.has(id)); });
+  $("#ver").onclick = ()=>{
+    if(sel.size===0){ ok("Verified. Nothing is older than you. You are human. Technically."); advance(); return; }
+    const first = tiles.find(t=>sel.has(t[0]));
+    fail(first[2]);
+    sel.clear(); $("#cap").querySelectorAll(".card").forEach(b=>{ b.classList.remove("sel"); b.setAttribute("aria-pressed","false"); });
+  };
+}
+
+/* ---------- 7 future ---------- */
+function future(){
+  shell(6, `<p>AD 3000. Scientists have finally recovered the subject's birth certificate from deep storage.</p>
+    <dl class="cert"><dt>NAME</dt><dd>Atte Hesper</dd><dt>BORN</dt><dd>Before time (approx.)</dd><dt>PLACE</dt><dd>The primordial soup, back row</dd><dt>WITNESS</dt><dd>One very nervous trilobite</dd><dt>HAIRLINE</dt><dd>Pre-receded</dd><dt>STATUS</dt><dd>Still going, somehow</dd></dl>
+    <p class="task">One final question stands between you and the birthday message. Are you sure you're young enough to continue?</p>
+    <div class="row" id="gate"><button class="btn" id="y">Yes, I'm young</button><button class="btn ghost" id="n">No</button></div>`);
+  let size = 1;
+  $("#y").onclick = ()=>{
+    size = Math.max(.45, size-.15); $("#y").style.transform = `scale(${size})`;
+    fail(["Lie detected. The certificate is laughing at you.","The trilobite witness objects.","Perjury in the year 3000 carries a sentence of one more birthday.","The button is shrinking out of embarrassment for you."][Math.min(3,Math.round((1-size)/.15)-1)] , 5);
+  };
+  $("#n").onclick = ()=>{ ok("Honesty. Finally. The vault is opening."); advance(1200); };
+}
+
+/* ---------- finale ---------- */
+function finale(){
+  const mins = S.started ? Math.max(1,Math.round((Date.now()-S.started)/60000)) : 0;
+  stage.innerHTML = `<div class="finale">
+    <div class="year">ERA ∞ · TODAY</div>
+    <h2>${S.skipped ? "You found the shortcut." : "You made it through all of history."}</h2>
+    <div class="frame f-present"><img src="${RAW.point}" alt="Atte"></div>
+    <div class="letter">${MESSAGE.map(p=>`<p>${p}</p>`).join("")}<p style="margin:0;font-style:italic">— ${FROM}</p></div>
+    <div class="stats"><span>Mistakes <b>${S.miss}</b></span><span>Final estimated age <b>${fmt(S.age)}</b> yrs</span>${mins?`<span>Time spent <b>${mins} min</b></span>`:""}</div>
+    <p style="max-width:58ch;color:var(--muted);font-size:16px;margin:0">${S.skipped
+      ? "You clicked the tiny button. Wise. That's the kind of thing you learn after a few million years."
+      : "One more thing. See that tiny link in the bottom corner that says \"I'm too old for this\"? It opened this message the whole time. You could have skipped everything. Happy birthday."}</p>
+    <div class="eyebrow">Recovered evidence · tap to enlarge</div>
+    <div class="gallery">${ERAS.map(e=>`<figure><img src="${PIC(e.key)}" alt="${e.name}"><figcaption>${e.year}</figcaption></figure>`).join("")}</div>
+    <button class="btn" id="again">Throw more confetti</button>
+  </div>`;
+  if(!S.skipped) $("#tooOld").style.opacity = ".9";
+  $("#again").onclick = confetti;
+  setPct(100,"100% complete"); $("#eraNo").textContent="7/7";
+  confetti();
+}
+
+/* ---------- confetti ---------- */
+function confetti(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = $("#confetti"); c.hidden=false; const x = c.getContext("2d");
+  const W = c.width = innerWidth, H = c.height = innerHeight;
+  const cols = ["#d6a640","#e2553f","#72d7cf","#ede3cf","#f0c96a"];
+  const P = Array.from({length:260},()=>({x:Math.random()*W,y:-Math.random()*H,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,r:4+Math.random()*6,a:Math.random()*6,va:(Math.random()-.5)*.3,c:cols[Math.random()*5|0]}));
+  let f=0;
+  (function loop(){ x.clearRect(0,0,W,H);
+    P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.a+=p.va; x.save(); x.translate(p.x,p.y); x.rotate(p.a); x.fillStyle=p.c; x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2); x.restore(); });
+    if(++f<320) requestAnimationFrame(loop); else { x.clearRect(0,0,W,H); c.hidden=true; } })();
+}
+
+
+/* ---------- extra chaos ---------- */
+const HINTS = [
+  ["Have you tried being younger?", "The trilobite. It's always the trilobite."],
+  ["Think like a pharaoh. Or just think. Either is a start.", "Type your own name. The riddle is about you."],
+  ["Run faster. (You can't.)", "It gives up after 9 tries. Or press Tab, then Enter."],
+  ["The barber suffered a lot. Count the suffering.", "CDXII. C is 100, D is 500. CD is 400. XII is 12."],
+  ["Turn it off and on again. You know, like your knees.", "Close the error with the X (it runs 3 times), then hold the lever for 4 full seconds."],
+  ["Nothing is older than you. Literally nothing.", "Select nothing. Press Verify."],
+  ["Honesty is the best policy. You're welcome.", "Press No."]
+];
+function wireHint(i){
+  const b = $("#hintBtn"), box = $("#hintBox"); if(!b) return; let n = 0;
+  b.onclick = ()=>{
+    S.age += 50000000; save(); hud();
+    box.hidden = false; box.textContent = HINTS[i][Math.min(n,1)];
+    if(n===0){ b.textContent = "That hint was useless. Buy another (50,000,000 years)"; achieve("Paid to be insulted","You spent 50 million years on that hint."); }
+    else { b.disabled = true; b.textContent = "Hints exhausted. Like you."; }
+    n++;
+  };
+}
+let achT;
+const GOT = new Set(S.ach||[]);
+function achieve(title, text){
+  if(GOT.has(title)) return; GOT.add(title); S.ach=[...GOT]; save();
+  let el = $("#ach"); if(!el){ el=document.createElement("div"); el.id="ach"; el.className="ach"; el.setAttribute("role","status"); document.body.appendChild(el); }
+  el.innerHTML = `<b>Achievement unlocked</b>${title}<br><span style="color:var(--muted)">${text}</span>`;
+  requestAnimationFrame(()=>el.classList.add("on")); clearTimeout(achT); achT=setTimeout(()=>el.classList.remove("on"),3800);
+}
+const _fail = fail;
+fail = function(msg, years){ _fail(msg, years);
+  if(S.miss===1) achieve("First blood","Your first mistake. Many more to come.");
+  if(S.miss===10) achieve("Professional disappointment","10 mistakes. Historians are taking notes.");
+  if(S.miss===25) achieve("Living fossil","25 mistakes. The museum wants you back.");
+};
+function showAd(){
+  if(S.adSeen) return; S.adSeen = true; save();
+  const m = document.createElement("div"); m.className="modal";
+  m.innerHTML = `<div class="ad" role="dialog" aria-label="Advertisement"><button class="x" id="adx" aria-label="Close ad">close</button><h4>Local fossils in your area</h4><p>want to meet someone their own age. 3 trilobites are typing…</p><p style="font-size:12px;color:#666">Also try: Forehead Reduction Cream. 4 out of 5 pharaohs recommend.</p><button class="cta" id="adcta">Claim my free hairline</button></div>`;
+  document.body.appendChild(m);
+  $("#adcta").onclick = ()=>{ fail("You clicked an ad. In a birthday quest. Classic boomer behaviour.", 20); $("#adcta").textContent="Still loading… (forever)"; };
+  $("#adx").onclick = ()=>{ m.remove(); achieve("Ad blocker","You found the tiny close button. Your eyesight survives."); };
+}
+let idleT;
+function poke(){ clearTimeout(idleT); idleT = setTimeout(()=>{ if(S.stage>=1 && S.stage<=7){ fail(["Still there? The Bureau assumed you dozed off. At your age, fair.","Napping again? The dinosaurs went extinct faster than this.","Inactivity detected. Checking for a pulse…"][Math.random()*3|0], 3); } poke(); }, 30000); }
+["pointerdown","keydown"].forEach(e=>addEventListener(e,poke,{passive:true})); poke();
+document.addEventListener("click", e=>{
+  const img = e.target.closest(".frame img, .gallery img"); if(!img) return;
+  const z = document.createElement("div"); z.className="zoom"; z.innerHTML=`<img src="${img.src}" alt="${img.alt}">`; z.onclick=()=>z.remove(); document.body.appendChild(z);
+});
+
+/* ---------- router ---------- */
+const STAGES = [intro, dino, egypt, rome, medieval, industrial, present, future, finale];
+function render(){ hud(); (STAGES[S.stage] || finale)(); if(S.stage>=1&&S.stage<=7) wireHint(S.stage-1); if(S.stage===4) setTimeout(showAd,2500); }
+
+$("#restart").onclick = ()=>{ S = {...DEFAULT, log:[]}; GOT.clear(); save(); $("#log").innerHTML='<li><span>—</span>No failures yet. Enjoy it while it lasts.</li>'; $("#tooOld").style.opacity=""; render(); };
+$("#tooOld").onclick = ()=>{ if(S.stage<8){ S.skipped = true; } S.stage = 8; save(); render(); };
+
+render();
+</script>
+
+</body>
+</html>
